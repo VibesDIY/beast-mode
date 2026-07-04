@@ -1,0 +1,15 @@
+{
+  "name": "beast-mode",
+  "description": "Follow-through for high-fan-out development. Optimized for the workflow where a human fires off many parallel, well-scoped work streams — the risk isn't the changes, it's forgetting to finish them. beast-mode is the discipline that makes every fired stream land: it always ends in a PR, absorbs review autonomously, arms the merge on green, closes the issues it fixes, hands off what the environment can't do as a runbook issue, and captures what it learned. Pick beast-mode if your failure mode is dropped threads, not bad changes.",
+  "owner": {
+    "name": "VibesDIY",
+    "url": "https://github.com/VibesDIY"
+  },
+  "plugins": [
+    {
+      "name": "beast-mode",
+      "source": "./",
+      "description": "Follow-through for high-fan-out development. Optimized for the workflow where a human fires off many parallel, well-scoped work streams — the risk isn't the changes, it's forgetting to finish them. beast-mode is the discipline that makes every fired stream land: it always ends in a PR, absorbs review autonomously, arms the merge on green, closes the issues it fixes, hands off what the environment can't do as a runbook issue, and captures what it learned. Pick beast-mode if your failure mode is dropped threads, not bad changes."
+    }
+  ]
+}
