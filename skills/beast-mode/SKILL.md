@@ -5,6 +5,15 @@ description: Follow-through for high-fan-out development. Optimized for the work
 
 # beast-mode — follow-through for high-fan-out development
 
+> **Standalone install:** beast-mode is published as a mirror at
+> [VibesDIY/beast-mode](https://github.com/VibesDIY/beast-mode) —
+> `npx skills add VibesDIY/beast-mode`, or as a Claude Code plugin via
+> `/plugin marketplace add VibesDIY/beast-mode` +
+> `/plugin install beast-mode@beast-mode`. The source of truth is
+> [vibes.diy](https://github.com/VibesDIY/vibes.diy)'s
+> `.claude/skills/beast-mode/`; every merged change there is auto-published
+> to the mirror.
+
 Ten threads dispatched before lunch should be ten threads merged by dinner, not
 seven merged and three orphaned on stale branches. Skills like
 test-driven-development or systematic-debugging optimize the **quality of one
