@@ -77,6 +77,51 @@ graduates to implementation, push to the same branch — one feature = one PR =
 one place to look. Split only for independently shippable scope, an external
 blocker, or staged-rollout risk isolation.
 
+## Duplicate-PR race: pause, analyze on the PR, pick one active lane
+
+Parallel sessions can be fired at the same task (same prompt → sibling
+branches with the same harness stem, e.g. `claude/<stem>-abc123` /
+`claude/<stem>-xyz789`), and neither session can see the other at claim time.
+Check for an open PR or sibling branch for the same issue **before starting
+implementation and again before opening your PR**. If you suspect a duplicate
+at any point (a sibling branch, another PR referencing the same issue, a
+reviewer saying "didn't we just do this?"):
+
+1. **Pause your own implementation work** — don't race to merge.
+2. **Comment on the other PR with an analysis**: what overlaps, what differs,
+   and which PR is further ahead per the comparator below — **cite the first
+   decisive rule** so the other agent can verify the same conclusion
+   independently.
+3. **If you are further ahead**, say so in that comment and ask the authoring
+   agent to switch to review mode on _your_ PR. **Otherwise, you switch to
+   reviewing the other PR** — your findings become review feedback, not a
+   competing diff.
+4. **Either way, highlight the situation to the human** in your session
+   reply/notification — a duplicate race is always worth a human glance, even
+   when the resolution is clean.
+
+**Further-ahead comparator** — apply in this exact order, stop at the first
+decisive rule (ordering per Charlie's review of the protocol PR):
+
+1. _Commit containment_: if one PR's head is an ancestor of the other's, the
+   descendant is ahead.
+2. _Required checks_: if exactly one head has all required checks green, it
+   is ahead.
+3. _Review state_: if exactly one has approval(s) and no unresolved change
+   requests, it is ahead.
+4. _Validation evidence_: if exactly one links successful preview /
+   real-environment validation, it is ahead.
+5. _Nothing decisive_ (or both agents paused): the PR whose **head branch
+   sorts lexicographically first proceeds as active**; the other switches to
+   review mode. Compare the full `owner:branch` string, lowercased, byte-wise
+   ASCII — deterministic, computable by both sides without coordination, and
+   the key exists even before either PR is opened (owner picked branch name
+   over PR number, 2026-07-07).
+
+The superseded PR closes with a comment linking the survivor (and its issues,
+runbooks, etc. get deduplicated into the survivor's). (Owner-stated,
+2026-07-07, after the #3342/#3347 race on #3308.)
+
 ## All at once on one branch — split only what turns sticky
 
 When a work stream has several related pieces (a batch of follow-ups, a
