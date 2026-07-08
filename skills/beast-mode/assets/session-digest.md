@@ -10,10 +10,14 @@ never a silent stall. The always-on rules:
 - Every session that produces commits ends in an open PR — proactively, no
   asking. Label it, ping the reviewer per config, subscribe, absorb feedback
   autonomously, validate the diff against a real environment.
-- Green + resolved + garden-variety → arm native auto-merge (rebase) and move
-  on — only where a verified required check gates the default branch;
-  otherwise merge directly on green. Risky classes (schema, infra, flag
-  flips, non-clean revert) hold for a human. Verify fixed issues actually closed. Drop the capture note.
+- Reviewer's pass on the CURRENT head absorbed + garden-variety → arm native
+  auto-merge (rebase) and move on — never before the reviewer's first pass
+  ("no open threads" is vacuously true early), and disarm before pushing
+  review fixes (armed auto-merge survives pushes and merges on green before
+  the re-review). Only arm where a verified required check gates the default
+  branch; otherwise merge directly on green. Risky classes (schema, infra,
+  flag flips, non-clean revert) hold for a human. Verify fixed issues
+  actually closed. Drop the capture note.
 - Work this environment can't do (scopes/secrets/admin) → finish everything it
   CAN do, then file one runbook issue for the privileged agent.
 - Narrate semantics, not git mechanics.

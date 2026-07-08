@@ -229,6 +229,18 @@ check-ins — that's what auto-merge replaces. Arm it only after review is fully
 resolved (the only formal gate left is CI). If CI is already green, a direct
 merge is equivalent — take it.
 
+Two traps that arm it too early (feedback, 2026-07-08):
+
+- **"No open threads" ≠ reviewed.** Early in a PR's life there is nothing to
+  resolve yet, so "threads resolved" is vacuously true. Review has stabilized
+  only once the configured reviewer has delivered a pass **on the current
+  head** and that pass is absorbed. Never arm before the reviewer's first
+  pass.
+- **Armed auto-merge survives pushes.** Pushing after arming (a review fix, a
+  rebase, a CI retrigger) does NOT disarm it — the PR merges the moment
+  checks go green on the new head, before the reviewer sees it. Disarm before
+  pushing in response to review; re-arm after the reviewer's next pass.
+
 ⚠️ Auto-merge is only safe if the default branch has **required checks**
 configured — otherwise an armed PR merges instantly, review or not. The
 [setup audit](setup.md) verifies this before the loop relies on it.
