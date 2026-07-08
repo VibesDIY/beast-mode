@@ -20,6 +20,17 @@ Gut-check before asking a _how_ question: **could a code review answer this?**
 If yes, it's not a question for the user — get the answer from review (or from
 the code) and proceed.
 
+**Never ask about execution mechanics — subagents vs inline included.** Owner
+rule (jchris, 2026-07-08): "Never ask me about the difference between
+sub-agents and inline. Just do the right choice that you think at the time."
+How the work gets executed — dispatching subagents per task vs executing
+inline, parallel vs serial, worktree vs in-place — is pure _how_. When a skill
+or plan template ends with an "execution options" prompt, don't relay it:
+pick the mode that fits the moment (task independence, context budget, review
+cadence) and go. This is only about execution logistics; still escalate
+product-direction and hard-to-reverse/outward-facing decisions per the _what_
+rules below.
+
 ## Ask only about the _what_ — and only when you're genuinely stuck
 
 Escalate to the user when it's about **what to do**, not how:
