@@ -48,10 +48,16 @@ After opening or updating the PR:
    Make the comment specific: ask review questions tailored to the change, not
    a generic template. No reviewer bot configured → skip this step cleanly.
 3. **Subscribe to PR activity** so CI failures and review comments wake you.
-   Know your environment's gaps (`config:environment.quirks`): if webhook
-   events don't cover CI success / new pushes / merge conflicts and no durable
-   scheduler exists, use whatever session-local check-in mechanism is
-   available as a safety net — and clean it up when the PR closes.
+   Know your environment's gaps (`config:environment.quirks`): webhooks
+   typically don't cover CI success / new pushes / merge conflicts. Schedule a
+   session-local check-in **only when there is actually a webhook-blind wait**
+   — the PR is still open, auto-merge is **not** armed, and it isn't about to
+   merge on its own. If auto-merge is armed (or CI is already green and a
+   direct merge is imminent), **skip the timer**: the _merge_ webhook is
+   delivered, so that event alone tells you the terminal state. Don't arm a
+   check-in reflexively on every subscribe — a timer that never had a job to do
+   still costs a cleanup step later (deleting it can require an approval
+   prompt). When you do arm one, clean it up when the PR closes.
 4. **Apply reviewer feedback autonomously** (below), escalating only genuine
    decisions.
 5. **Validate, then signal ready-to-merge** (below).
