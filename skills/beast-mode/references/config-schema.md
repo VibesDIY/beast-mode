@@ -33,6 +33,12 @@ value. Prose after a value is commentary for the agent, not part of the value.
 - `issue_mention_hazard` — `true` if @-mentioning the bot in an _issue_
   body/assignment makes it open its own duplicate PR (then: never live-mention
   it in issues). Default: `false`.
+- `linked_issue_optional` — `true` if this repo treats a PR with no linked
+  issue as normal (issue-free, PR-only work), so a reviewer's "no linked issue"
+  nag is not a blocker and agents should not backfill a throwaway issue to
+  silence it. Orthogonal to `Fixes #N` closure discipline — governs only
+  whether an issue had to exist _before_ the PR. Default: `false` → follow the
+  repo's issue-linking policy as the reviewer states it.
 
 ### `labels`
 

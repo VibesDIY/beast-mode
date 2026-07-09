@@ -162,6 +162,18 @@ no message to the user. Speak up only when an event changes something they'd
 act on: a real CI failure caused by the change, feedback needing their
 decision, a merge/close.
 
+**A missing linked issue may not be a blocker — check repo policy.** When the
+reviewer flags that a PR has no linked issue, consult
+`config:reviewer.linked_issue_optional`. If the repo sets it, no tracking issue
+is required up front: **don't backfill a throwaway issue to satisfy the nag** —
+reply that it's intentional issue-free work and point at the PR description,
+which carries the what/why. Open a real issue only when the work genuinely
+needs tracking beyond this one PR (a multi-PR effort, a design that outlives the
+change). This is orthogonal to `Fixes #N`: a PR that _does_ close an existing
+issue still links it early and verifies closure (below) — the config governs
+only whether an issue had to exist _first_. Where the config leaves it unset,
+follow the repo's own issue-linking policy as the reviewer states it.
+
 **Don't let a bot reviewer talk you out of the PR.** When bot advice amounts
 to "abandon this change," verify the objection against how this codebase
 actually behaves before yielding — bots review in the abstract and miss
