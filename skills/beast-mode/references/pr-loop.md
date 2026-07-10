@@ -257,6 +257,17 @@ Two traps that arm it too early (feedback, 2026-07-08):
 configured — otherwise an armed PR merges instantly, review or not. The
 [setup audit](setup.md) verifies this before the loop relies on it.
 
+**"Enabling auto-merge failed / GitHub won't let me arm while checks run" is a
+state signal, not a wall — never report it as a dead-end.** The platform
+refuses to arm when it sees **no pending _required_ check** to wait on (its
+"already mergeable / clean status" path), which is common when the required
+gate is a fast/aggregator check and the checks you see running are all
+_non-required_. Key the decision on the required check itself, not "are any
+checks running": required check pending → arm; required check already green +
+review settled → merge directly; required check not reported yet → wait on its
+conclusion webhook (a walk-away path, not an escalation). Repo-specific detail
+(which check is required, its timing): `config:merge` + the project overlay.
+
 **Hold for an explicit human merge** (never arm auto-merge) on anything that
 should go out on its own deploy or has a non-trivial rollback story:
 schema/migrations, stateful-service topology, new bindings/infrastructure,
