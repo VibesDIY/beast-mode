@@ -257,16 +257,28 @@ Two traps that arm it too early (feedback, 2026-07-08):
 configured — otherwise an armed PR merges instantly, review or not. The
 [setup audit](setup.md) verifies this before the loop relies on it.
 
-**"Enabling auto-merge failed / GitHub won't let me arm while checks run" is a
-state signal, not a wall — never report it as a dead-end.** The platform
-refuses to arm when it sees **no pending _required_ check** to wait on (its
-"already mergeable / clean status" path), which is common when the required
-gate is a fast/aggregator check and the checks you see running are all
-_non-required_. Key the decision on the required check itself, not "are any
-checks running": required check pending → arm; required check already green +
-review settled → merge directly; required check not reported yet → wait on its
-conclusion webhook (a walk-away path, not an escalation). Repo-specific detail
-(which check is required, its timing): `config:merge` + the project overlay.
+**Arming works _while_ required checks run — that's the whole point; arming IS
+the walk-away.** With an enforced required check, a PR sits in `blocked` the
+moment CI starts (the required check is pending/expected), which is exactly the
+state `enable_pr_auto_merge` arms against. So: review stabilized → arm → it
+merges itself on green. **Do not schedule `send_later` check-ins or watchers to
+babysit the merge** — that's the anti-pattern; the merge needs nothing from you
+once armed.
+
+**If arming is refused, read the required check before reacting.** If it has
+already **passed on the current head**, there's just nothing left to wait on —
+that's the normal already-green case, so **merge directly**, don't escalate.
+Only a refusal **while the required check is still pending** (the PR won't go
+`blocked` when it should) points at a config problem — and _then_ don't build a
+timer around it, **suspect the config**: branch protection / the ruleset isn't
+set (the
+[setup audit](setup.md) catches this at bootstrap), or an org **billing lapse
+has silently stopped enforcing it mid-flight** (a runtime regression the static
+audit won't catch — the reason a live arm-refusal is worth a second look). Flag
+it for the human. A merge loop should never grow a watcher to compensate
+for a disabled gate — that just papers over a settings regression. (This is the
+lesson from a full day lost chasing an `unstable`-refusal as if it were a CI
+shape problem when it was a lapsed Teams plan.)
 
 **Hold for an explicit human merge** (never arm auto-merge) on anything that
 should go out on its own deploy or has a non-trivial rollback story:
