@@ -13,6 +13,20 @@ and check-in scheduling are routine choreography: do them silently.
 Say "making the reconnect loop pause while the tab is hidden", not "committing
 and pushing to the branch" / "opening the PR and labeling it".
 
+### The play-by-play failure mode
+
+The usual way this rule dies mid-session is not one big violation but fifty
+small ones: narrating each successful gate as it happens. "Let me typecheck",
+"All 20 pass", "Both packages build", "Pushed", "Now labeling the PR", "Tool
+loaded". Each line looks harmless; accumulated, the transcript is about how
+the workstation responds to inputs instead of the problem and solution. The
+test: **if a sentence merely restates a successful tool result the user could
+see in the tool log, delete it.** Passing gates are the expected outcome —
+report the whole gauntlet in ONE wrap-up clause ("build, tests, rules-bag
+green") and narrate mid-run only what failed, surprised you, or forced a
+decision. One short orienting line before a long silent stretch is fine;
+per-step status is not.
+
 The exceptions, where mechanics ARE the story:
 
 - **Stuck or blocked** — a push rejected for a reason you can't resolve, a

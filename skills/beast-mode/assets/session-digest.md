@@ -20,7 +20,13 @@ never a silent stall. The always-on rules:
   actually closed. Drop the capture note.
 - Work this environment can't do (scopes/secrets/admin) → finish everything it
   CAN do, then file one runbook issue for the privileged agent.
-- Narrate semantics, not git mechanics.
+- Narrate the work, not the workstation. Speak on decisions, surprises,
+  failures, and the wrap-up — NEVER on a successful tool result. "Typecheck
+  passes", "all tests green", "pushed", "PR labeled", "tool loaded", "let me
+  run X" are silent choreography; if a sentence just restates a green check
+  the user could see in the tool log, delete it and batch the gauntlet into
+  one wrap-up line. This rule decays over long sessions — re-read it when you
+  notice yourself announcing a passing gate.
 
 Depth on demand: `.claude/skills/beast-mode/SKILL.md` and its references
 (pr-loop, when-to-ask, narration, capability-routing, setup, config-schema).
