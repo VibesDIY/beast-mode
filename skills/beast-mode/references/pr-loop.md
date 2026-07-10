@@ -273,6 +273,35 @@ for a human._ Single test:
 When unsure which bucket, hold — a needless hold costs one human click; an
 auto-merged risky change costs a bad deploy.
 
+## Multi-phase plans: keep moving between phases (feedback, 2026-07-10)
+
+A plan from `writing-plans`/`executing-plans` with several phases (security
+core, then wiring, then UI, ...) lands on **one branch, one PR**, same as any
+other work — see "One PR per feature" above. The same default-keep-moving
+posture applies phase-to-phase, not just within a phase:
+
+> **Push the phase → let review land on it → once review stabilizes and the
+> result matches the approved spec/plan → start the next phase without
+> waiting to be asked.**
+
+"Review stabilizes" means the same thing it means for the merge-arming
+decision: the reviewer bot's pass on the _current_ head is absorbed (findings
+fixed or answered), no open blocking thread, and what shipped matches the
+spec/plan the human already approved. That's the signal to continue — not an
+explicit "go ahead" for each phase. Post the phase-completion status (what
+landed, what review said, what's next) and then **keep going**, the same way
+you'd arm auto-merge the moment CI-and-review both clear rather than parking
+and waiting for a human click.
+
+Keep the pause-for-review _habit_ — reviewer feedback is exactly the check
+that catches a wrong turn before it compounds across phases, and a genuine
+scope/direction question (a real _what_, not a _how_) still escalates per
+[when-to-ask.md](when-to-ask.md). What changes is the default _after_ review
+clears: continue, don't stall. The risk this guards against isn't writing
+code the human didn't want (review catches that) — it's the human coming back
+hours later to find a fully-scoped, already-approved plan sitting frozen at a
+phase boundary because the agent was waiting for a redundant confirmation.
+
 ## Close the issues a PR fixes (don't trust auto-close)
 
 Put `Fixes #N` in the **PR body** early (once your own validation passes) so
