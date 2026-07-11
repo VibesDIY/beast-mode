@@ -87,7 +87,7 @@ This repo is a **published mirror**. The source of truth is
 where the skill runs ambiently in every agent session and improves through
 the same reviewed daily workflow it describes — every merge there that
 touches the skill auto-publishes here via
-[`scripts/export-beast-mode.mjs`](https://github.com/VibesDIY/vibes.diy/blob/main/scripts/export-beast-mode.mjs)
+[`scripts/export-beast-mode.ts`](https://github.com/VibesDIY/vibes.diy/blob/main/scripts/export-beast-mode.ts)
 and CI. So installs always get the latest battle-tested state, and issues/PRs
 about the skill's content are best filed upstream.
 
