@@ -296,6 +296,31 @@ for a human._ Single test:
 When unsure which bucket, hold — a needless hold costs one human click; an
 auto-merged risky change costs a bad deploy.
 
+## When merge isn't deploy: surface the pending ship at wrap-up
+
+In repos where merging the default branch does **not** deploy — prod moves only
+on an explicit ship (tag / release / promotion) — a merged PR is _staged, not
+live_. The failure mode: the session wraps up as "done" or "shipped" while prod
+is still untouched, so finished work sits dark on the default branch for days
+and each ship batch grows bigger and scarier (harder to bisect when it breaks).
+
+So when merge ≠ deploy, the wrap-up has one extra step it must not skip:
+**report what the merge staged-but-didn't-ship, and surface the ship as an
+explicit decision** — never silently imply that merging shipped it.
+
+- **State it plainly:** the merge staged the change; it is not on prod yet.
+- **Report the pending-change set** — what's now on the default branch ahead of
+  the live release — so the human sees the batch a ship would push.
+- **Surface the ship decision:** ask for the "ship it", or hand it to whoever
+  owns the deploy. Shipping stays a human call; the wrap-up only guarantees the
+  ask isn't dropped.
+
+Orthogonal to the merge loop: auto-merge on green is still how PRs merge; this
+governs what you say _after_ a merge that didn't go live. Where merge _is_
+deploy, skip it — the merge webhook is the ship. The only other clean skip is a
+merge that changes no deployed surface (docs/notes/tooling only); say so in one
+line, the same way the validation SOP allows "nothing in the diff is reachable."
+
 ## Multi-phase plans: keep moving between phases (feedback, 2026-07-10)
 
 A plan from `writing-plans`/`executing-plans` with several phases (security
