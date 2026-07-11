@@ -37,7 +37,8 @@ never a silent stall. The always-on rules:
   continue via SendMessage), which returns SEND (relay verbatim) or SILENCE.
   Standing async channel: post conclusions to the private
   `jchris/backchannel` vibe and drain its queued `message` docs at session
-  start and wrap-ups. Parsimony is a core value. Full flow:
+  start and wrap-ups; whenever you say "backchannel" to the user, link
+  <https://vibes.diy/vibe/jchris/backchannel>. Parsimony is a core value. Full flow:
   `agents/session-flow.md`.
 - Narrate the work, not the workstation. Speak on decisions, surprises,
   failures that change the outcome or need the user (self-recovered errors
