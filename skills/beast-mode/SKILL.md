@@ -121,6 +121,10 @@ agent or human can execute top-to-bottom — see
 - [references/when-to-ask.md](references/when-to-ask.md) — decide the _how_
   yourself; ask the user only about the _what_, and only when review can't
   answer it.
+- [references/session-flow.md](references/session-flow.md) — orchestrate, don't
+  operate: tiered subagents, Workflow-tool orchestration, the say-what/ask-why/
+  never-how communication contract, the persistent comms gate, and the async
+  owner channel.
 - [references/narration.md](references/narration.md) — narrate semantic
   changes; git/PR mechanics run silent unless stuck or anomalous. Plus
   issue-writing style.
@@ -151,6 +155,7 @@ facts):
 
 - `references/pr-loop.md` ← `agents/pr-lifecycle.md`
 - `references/when-to-ask.md` ← `agents/when-to-ask.md`
+- `references/session-flow.md` ← `agents/session-flow.md`
 - `references/narration.md` ← `agents/coding-standards.md` (narration,
   issue-tagging, screenshot, say sections) + CLAUDE.md (issue-writing)
 - `references/git-conventions.md` ← `agents/git-workflow.md` +

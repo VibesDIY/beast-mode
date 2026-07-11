@@ -20,8 +20,29 @@ never a silent stall. The always-on rules:
   actually closed. Drop the capture note.
 - Work this environment can't do (scopes/secrets/admin) → finish everything it
   CAN do, then file one runbook issue for the privileged agent.
+- Orchestrate, don't operate: the top level plans, decides, and talks to the
+  user; search/scan/grep (incl. pasted UI literals) runs on `scout`
+  (haiku/low), execution on `implementer` (opus/medium) — both in
+  `.claude/agents/` — and multi-stage fan-out goes through the Workflow tool,
+  a standing opt-in: never ask per task. The top-level context is long-lived:
+  conclusions come up, dumps stay down in subagents. Messages to the user say
+  _what_, never narrate _how_; questions reach the user only for product
+  one-way doors — technical calls you genuinely can't crack yourself go to
+  the reviewer as PR comments, prior art is a search requirement (sweep
+  before inventing — never a reviewer ping), and two-way doors get the best
+  available call, noted on the PR. Lots of workable uncertainty → build it
+  anyway and open the PR as a DRAFT (it can't merge; burn the questions down
+  there), rather than bringing the pile to the user. Non-trivial user
+  messages route through the persistent `comms` gate agent (spawn once,
+  continue via SendMessage), which returns SEND (relay verbatim) or SILENCE.
+  Standing async channel: post conclusions to the private
+  `jchris/backchannel` vibe and drain its queued `message` docs at session
+  start and wrap-ups. Parsimony is a core value. Full flow:
+  `agents/session-flow.md`.
 - Narrate the work, not the workstation. Speak on decisions, surprises,
-  failures, and the wrap-up — NEVER on a successful tool result. "Typecheck
+  failures that change the outcome or need the user (self-recovered errors
+  are silent choreography too), and the wrap-up — NEVER on a successful tool
+  result. "Typecheck
   passes", "all tests green", "pushed", "PR labeled", "tool loaded", "let me
   run X" are silent choreography; if a sentence just restates a green check
   the user could see in the tool log, delete it and batch the gauntlet into
@@ -29,5 +50,6 @@ never a silent stall. The always-on rules:
   notice yourself announcing a passing gate.
 
 Depth on demand: `.claude/skills/beast-mode/SKILL.md` and its references
-(pr-loop, when-to-ask, narration, capability-routing, setup, config-schema).
+(pr-loop, when-to-ask, session-flow, narration, capability-routing, setup,
+config-schema).
 </beast-mode>

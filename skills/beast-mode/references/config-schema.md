@@ -86,6 +86,25 @@ value. Prose after a value is commentary for the agent, not part of the value.
 - `dir` — capture-note directory. Default: none (skip the capture step).
 - `kind` — what a note is called (blog seed, changelog nugget, …).
 
+### `session-flow`
+
+Parameters for the default orchestrate-don't-operate session shape
+([session-flow.md](session-flow.md)). Default: none → run inline with the
+harness defaults (no tiered roster, no async channel), and skip the dependent
+steps cleanly.
+
+- `user` — who the session reports to / whose product it is.
+- `workflow_opt_in` — `standing` if multi-agent Workflow orchestration is a
+  pre-authorized default (never ask per task). Default: unset → ask when it's a
+  judgment call.
+- `agents` — the repo-defined subagent roster (`.claude/agents/`), each pinning
+  its own model/effort; the standing tiers are a top-level orchestrator, an
+  `implementer` (execution), a `scout` (search), and a persistent `comms` gate.
+- `terseness` — the calibrated message-terseness note for this user (the
+  silence rules govern messages, not the transcript).
+- `async_channel` — the private owner-only board used as the both-ways async
+  queue, with the concrete doc shapes and read/write commands.
+
 ### `environment`
 
 - `quirks` — a list of known per-environment-class limits, each with the

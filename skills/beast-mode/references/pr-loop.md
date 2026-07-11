@@ -83,6 +83,15 @@ graduates to implementation, push to the same branch — one feature = one PR =
 one place to look. Split only for independently shippable scope, an external
 blocker, or staged-rollout risk isolation.
 
+## Every PR body leads with `## Why`
+
+The first section of every PR body is `## Why` — three short sentences: the
+problem or goal, why now, why this shape — above `What` and everything else.
+It's the reviewer's and the human's fastest read of the change's intent. If the
+repo ships a PR template it should enforce the order; when a metadata bot
+regenerates the body sections, check the `Why` survived at the top and restore
+it if it didn't.
+
 ## Duplicate-PR race: pause, analyze on the PR, pick one active lane
 
 Parallel sessions can be fired at the same task (same prompt → sibling

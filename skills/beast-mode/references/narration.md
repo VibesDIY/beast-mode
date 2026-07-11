@@ -1,6 +1,6 @@
 # Narration & writing style
 
-<!-- derived-from: agents/coding-standards.md (narration, issue-tagging, screenshots, say) + CLAUDE.md (issue-writing) · last-synced: 2026-07-04 · owner: jchris -->
+<!-- derived-from: agents/coding-standards.md (narration, issue-tagging, screenshots, say) + CLAUDE.md (issue-writing) + agents/session-flow.md (self-recovered failures, system feedback) · last-synced: 2026-07-11 · owner: jchris -->
 
 ## Narrate semantics, not mechanics
 
@@ -36,6 +36,17 @@ The exceptions, where mechanics ARE the story:
   that didn't pick up the change).
 - **Deliverables** — the final PR/issue link and the outcome belong in the
   wrap-up; it's the play-by-play that doesn't.
+
+Two kinds of event that feel report-worthy but aren't:
+
+- **Self-recovered failures are silence.** An error you caught and fixed — a
+  bad dispatch, a crashed tool, a retry that worked — is process, not product.
+  Recover and keep going; speak about a failure only when it changes the
+  outcome or timeline, or needs a user decision.
+- **Hook and system feedback is workstation noise.** A hook prompt, stop-hook
+  nag, or harness reminder is not a user question — act on it (or correctly
+  decline to) silently. Never send the user a message whose only content is
+  explaining workstation state.
 
 ## Issue-writing style
 
