@@ -125,6 +125,24 @@ queue instructions from any device, no live window required.
   mark it read. Concrete doc shapes, the `db put`/`query` commands, and any
   access-control note live with the channel entry in config.
 
+## Worktree isolation — isolate lanes, not agents
+
+Under heavy fan-out, worktrees are per-**branch**, not per-agent (jchris,
+2026-07-11):
+
+- **Read-only agents never get one** (search, verify, comms) — nothing
+  mutates; isolation is pure setup cost.
+- **A mutating agent gets its own worktree when the main tree holds a
+  different live lane** (another branch checked out, uncommitted state), and
+  always when concurrent implementers target **different** branches.
+- **Same branch + disjoint files → share the tree** under the
+  parallel-dispatch guardrails (pathspec-scoped `add`/`commit`, no repo-wide
+  formatters); best of all, have agents edit only and let the controller
+  commit once. Worktrees there buy merge plumbing, not safety.
+- **Monorepo tax**: a fresh worktree has no node_modules/dev state, so
+  gate-running agents pay a full install — prefer batching work into fewer
+  branches over many isolated trees when it's all bound for one PR anyway.
+
 ## Superpowers run without asking
 
 The vendored workflow skills (brainstorming → writing-plans →
