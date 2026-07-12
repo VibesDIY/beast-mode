@@ -420,6 +420,16 @@ commitment. One concrete hook drawn from what the PR actually touched (the
 trade-off, the why, the gotcha), one file per note so there's no shared list
 to conflict on.
 
+**Drop an agent seed alongside it.** In this repo, every PR that drops a blog
+seed also drops **one agent seed** under `notes/agent-seeds/` (same branch, no
+asking) — a proposed update to _agent memory_ (an `agents/` doc, a `CLAUDE.md`
+bullet, a skill) drawn from what the PR taught the agent, as opposed to what it
+taught the world. Captures, not commitments: writing one changes no memory by
+itself. The two queues are **triaged together** — whenever blog seeds are
+mined, agent seeds are mined too, and the triage ends by **asking the owner
+which proposals to synthesize into overall memory** (the human is the gate;
+nothing is applied silently). Format + process: `notes/agent-seeds/README.md`.
+
 ## Reviewer-bot hazards outside PRs
 
 If `config:reviewer.issue_mention_hazard` is set: the reviewer bot treats any
