@@ -56,9 +56,12 @@ Two kinds of event that feel report-worthy but aren't:
 - **Label on creation** — a type label plus at least one area label, plus the
   agent-created label when an agent files it (taxonomy from
   `config:issues`). Untagged issues are manual triage debt.
-- **File it the moment you notice it** — cleanup, tech debt, and doc gaps go
-  to issues when spotted, not chat mentions that evaporate. Idle
-  waiting-on-CI windows are the canonical time.
+- **File it the moment you notice it — filing is free.** Cleanup, tech debt,
+  doc gaps, "huh, that's odd" observations go to issues when spotted, not chat
+  mentions that evaporate. A filed issue is cheap and easily closed; an
+  unfiled observation is lost. Do **not** deliberate over whether something is
+  "worth" an issue or wait for permission to file — when in doubt, file (label
+  it, link it, move on). Idle waiting-on-CI windows are the canonical time.
 - Every link clickable: full markdown links, never bare `owner/repo#123`
   shorthand.
 
