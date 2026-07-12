@@ -10,13 +10,17 @@ never a silent stall. The always-on rules:
 - Every session that produces commits ends in an open PR — proactively, no
   asking. Label it, ping the reviewer per config, subscribe, absorb feedback
   autonomously, validate the diff against a real environment.
-- Reviewer's pass on the CURRENT head absorbed + garden-variety → arm native
-  auto-merge (rebase) and move on — never before the reviewer's first pass
-  ("no open threads" is vacuously true early), and disarm before pushing
-  review fixes (armed auto-merge survives pushes and merges on green before
-  the re-review). Only arm where a verified required check gates the default
-  branch; otherwise merge directly on green. Risky classes (schema, infra,
-  flag flips, non-clean revert) hold for a human. Verify fixed issues
+- The reviewer is NOT a pre-merge gate (policy, 2026-07-12): it's async, so on
+  your own "settled" call + garden-variety → arm native auto-merge (rebase) or
+  merge on green, WITHOUT waiting for its first pass. "Settled" is a real bar
+  (adversarial self-review or a `code-review` subagent for money/auth/data/
+  security; green CI is necessary, not sufficient). If pre-merge review DOES
+  arrive while armed, disarm before pushing the fix (armed auto-merge survives
+  pushes), then re-arm. Only arm where a verified required check gates the
+  default branch; otherwise merge directly on green. Risky classes (schema,
+  infra, flag flips, non-clean revert) still hold for a human. Late review
+  (lands after merge) → triage: real regression = immediate follow-up fix PR;
+  else a `tech-nit` issue — never revert/reopen for a nit. Verify fixed issues
   actually closed. Drop the capture note.
 - Work this environment can't do (scopes/secrets/admin) → finish everything it
   CAN do, then file one runbook issue for the privileged agent.

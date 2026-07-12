@@ -39,12 +39,20 @@ value. Prose after a value is commentary for the agent, not part of the value.
   silence it. Orthogonal to `Fixes #N` closure discipline — governs only
   whether an issue had to exist _before_ the PR. Default: `false` → follow the
   repo's issue-linking policy as the reviewer states it.
+- `pre_merge_gate` — `false` if the review bot is async and does NOT gate merge:
+  garden-variety PRs merge / arm on the team's own "settled" assessment without
+  waiting for the bot's first pass, and feedback arriving after merge is triaged
+  (real regression → follow-up fix PR; else a `tech-nit` issue). Default: `true`
+  → the bot's pass on the current head is a pre-merge gate (arm only after it).
 
 ### `labels`
 
 - `agent_created` — label applied to every agent-opened PR/issue. Default:
   `agent-created` (create it via setup if absent).
 - `ready_to_merge` — the ready-state label. Default: `ready-to-merge`.
+- `tech_nit` — label for a post-merge reviewer finding not worth a fix PR
+  (style/naming/structure). Default: none → only set when `reviewer.pre_merge_gate`
+  is `false` (the late-review triage needs it); create it via setup if absent.
 
 ### `gate`
 
@@ -63,6 +71,10 @@ value. Prose after a value is commentary for the agent, not part of the value.
 ### `merge`
 
 - `method` — merge method for the loop. Default: `rebase` (never squash).
+- `reviewer_gates_merge` — `false` if garden-variety merge/arm does NOT wait on
+  the review bot's pass (mirrors `reviewer.pre_merge_gate: false`); it's the
+  team's own settled call on green CI. Risky classes in `hold_for_human` still
+  hold regardless. Default: `true` → review is a pre-merge gate.
 - `required_check` — the check that gates auto-merge. Default: **unknown → do
   NOT arm auto-merge** until the setup audit has verified a required check
   exists on the default branch; merge directly on green instead.

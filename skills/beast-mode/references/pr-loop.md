@@ -250,17 +250,32 @@ check-ins — that's what auto-merge replaces. Arm it only after review is fully
 resolved (the only formal gate left is CI). If CI is already green, a direct
 merge is equivalent — take it.
 
-Two traps that arm it too early (feedback, 2026-07-08):
+### The reviewer is not a pre-merge gate (policy, 2026-07-12)
 
-- **"No open threads" ≠ reviewed.** Early in a PR's life there is nothing to
-  resolve yet, so "threads resolved" is vacuously true. Review has stabilized
-  only once the configured reviewer has delivered a pass **on the current
-  head** and that pass is absorbed. Never arm before the reviewer's first
-  pass.
-- **Armed auto-merge survives pushes.** Pushing after arming (a review fix, a
-  rebase, a CI retrigger) does NOT disarm it — the PR merges the moment
-  checks go green on the new head, before the reviewer sees it. Disarm before
-  pushing in response to review; re-arm after the reviewer's next pass.
+The configured
+reviewer is async — usually a ~20–30 min COMMENT-state pass that frequently
+lands AFTER merge — so waiting on it is **not** required. When your own review
+says the PR is settled and it's garden-variety, merge (or arm auto-merge on
+green) **without waiting for the reviewer's first pass**. The judgment to merge
+is ours; the reviewer's timing does not gate it. (This reverses the older
+"never arm before the reviewer's first pass" rule — deliberately, for velocity.)
+Two things this does NOT relax:
+
+- **"Settled" is a real bar, not just green CI.** You must have actually
+  scrutinized the change for correctness — and for anything touching money,
+  auth, data, or security, run an adversarial self-review (or a `code-review`
+  subagent) before calling it settled. Green tests are necessary, not
+  sufficient. Merging ahead of the reviewer means a bug it would have caught can
+  land in `main` — that's the accepted trade, held in check by two backstops:
+  this bar, and the late-review triage below that escalates a real miss to an
+  immediate fix.
+- **Risky classes still hold for a human** (the hold-for-human list below —
+  schema/infra/flag-flips/etc.). That's about deploy reversibility, orthogonal
+  to reviewer timing, and unchanged.
+
+Still true once you're merging on green: **armed auto-merge survives pushes** —
+if pre-merge review feedback DOES arrive while armed, disarm before pushing the
+fix (else it merges on green before the re-review), then re-arm.
 
 ⚠️ Auto-merge is only safe if the default branch has **required checks**
 configured — otherwise an armed PR merges instantly, review or not. The
@@ -305,6 +320,33 @@ for a human._ Single test:
 When unsure which bucket, hold — a needless hold costs one human click; an
 auto-merged risky change costs a bad deploy.
 
+## Late review: triage into a fix or a tech-nit issue
+
+Because we merge on our own "settled" call rather than waiting for the reviewer
+(above), the reviewer's pass — and the secondary reviewer's — frequently lands
+**after** the PR is merged. Don't drop it, and don't reflexively revert or
+reopen. Triage each late finding by one question: **would I have blocked the
+merge on this if I'd seen it in time?**
+
+- **Yes — a real regression** (correctness, security, data-integrity, money, or
+  anything you'd have called P0/P1 pre-merge): open a follow-up **fix PR
+  immediately**, titled "Follow-up to #\<PR\>". If the merged change also
+  shipped, treat it with prod-incident urgency. This is the escape valve for
+  when "settled" was wrong — and it will be sometimes; that's the cost of not
+  waiting, paid down fast.
+- **No — everything else** (style, naming, structure, test-shape, non-blocking
+  "consider X"): file a **`tech-nit` issue** (labels `tech-nit` + the
+  agent-created label), title it from the finding, link the review comment and
+  the merged PR, and move on. Do **not** revert, reopen, or hotfix for a nit.
+
+Subscription timing: the harness auto-unsubscribes the session when the PR
+merges, so a late pass may not reach you live — that's fine. The reviewer's
+comment persists on the PR; capture it via this triage whenever it surfaces (a
+later turn, a human relay, or a quick post-merge glance at the PR's review
+state). Never grow a clock timer to poll for it — that ban still holds. If a
+review fix is cheap and the reviewer's pass is visibly seconds away, a _brief_
+wait is fine; it is never a _gate_.
+
 ## When merge isn't deploy: surface the pending ship at wrap-up
 
 In repos where merging the default branch does **not** deploy — prod moves only
@@ -337,18 +379,20 @@ core, then wiring, then UI, ...) lands on **one branch, one PR**, same as any
 other work — see "One PR per feature" above. The same default-keep-moving
 posture applies phase-to-phase, not just within a phase:
 
-> **Push the phase → let review land on it → once review stabilizes and the
-> result matches the approved spec/plan → start the next phase without
-> waiting to be asked.**
+> **Push the phase → once your own review says it's settled and the result
+> matches the approved spec/plan → start the next phase without waiting to be
+> asked** — and without waiting for the reviewer bot's pass (same
+> reviewer-not-a-gate policy as merge-arming).
 
-"Review stabilizes" means the same thing it means for the merge-arming
-decision: the reviewer bot's pass on the _current_ head is absorbed (findings
-fixed or answered), no open blocking thread, and what shipped matches the
-spec/plan the human already approved. That's the signal to continue — not an
-explicit "go ahead" for each phase. Post the phase-completion status (what
-landed, what review said, what's next) and then **keep going**, the same way
-you'd arm auto-merge the moment CI-and-review both clear rather than parking
-and waiting for a human click.
+"Settled" means the same thing it means for the merge-arming decision: by your
+own assessment the phase matches the spec/plan the human already approved, any
+review feedback that has _already arrived_ is absorbed, correctness is
+scrutinized (adversarial self-review for money/auth/data/security), and there's
+no open blocking thread. You do **not** wait for the reviewer bot's pass to
+cross a phase boundary; if its feedback lands later, triage it like any late
+review (fix or `tech-nit`). Post the phase-completion status (what landed,
+what's next) and then **keep going**, the same way you'd arm auto-merge the
+moment CI clears rather than parking and waiting for a human click.
 
 Keep the pause-for-review _habit_ — reviewer feedback is exactly the check
 that catches a wrong turn before it compounds across phases, and a genuine
