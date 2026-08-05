@@ -430,6 +430,16 @@ mined, agent seeds are mined too, and the triage ends by **asking the owner
 which proposals to synthesize into overall memory** (the human is the gate;
 nothing is applied silently). Format + process: `notes/agent-seeds/README.md`.
 
+**Ship a Storybook story with a shared-component change.** A PR that adds or
+changes a component exported from `@vibes.diy/base` (`vibes.diy/base/components/**`)
+ships or updates that component's story in the same PR — the same reflex as the
+capture note and the docs-page rule, and it's enforced: `pnpm lint` runs the
+story-coverage gate, which fails on a new story-less component. Scaffold with
+`pnpm story:new <Name>`, ratchet the seeded backlog with `pnpm story-coverage:update`,
+or mark a genuinely non-visual export `// no-story: <reason>`. This is what gives
+component PRs a visual reference (and the `stories/**` → auto-screenshot payoff).
+Full rule: [vibes.diy's `agents/storybook-stories.md`](https://github.com/VibesDIY/vibes.diy/blob/main/agents/storybook-stories.md).
+
 ## Reviewer-bot hazards outside PRs
 
 If `config:reviewer.issue_mention_hazard` is set: the reviewer bot treats any

@@ -39,6 +39,17 @@ value. Prose after a value is commentary for the agent, not part of the value.
   silence it. Orthogonal to `Fixes #N` closure discipline — governs only
   whether an issue had to exist _before_ the PR. Default: `false` → follow the
   repo's issue-linking policy as the reviewer states it.
+- `implementation_delegate` — `true` if the repo routes DEFAULT code work to
+  an implementation bot lane: code work is handed off by filing a spec issue
+  and firing the repo's configured trigger (a label that starts a codegen
+  workflow, assigning/@-mentioning a bot — the repo's config names the
+  mechanism), and the session's role flips to reviewer of the bot's PR — the
+  team's own review IS a pre-merge gate on bot-authored PRs, run in parallel
+  with any bot reviewer rather than after it (`pre_merge_gate` governs only
+  the reverse direction, the bot reviewing team-authored PRs). Consuming
+  repos document the handoff runbook, trigger, and carve-outs (work that
+  stays on the local execution tier) in their config/agents docs. Default:
+  `false` → implementation runs on the repo's execution tier.
 - `pre_merge_gate` — `false` if the review bot is async and does NOT gate merge:
   garden-variety PRs merge / arm on the team's own "settled" assessment without
   waiting for the bot's first pass, and feedback arriving after merge is triaged

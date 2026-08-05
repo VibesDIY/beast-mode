@@ -26,8 +26,14 @@ never a silent stall. The always-on rules:
   CAN do, then file one runbook issue for the privileged agent.
 - Orchestrate, don't operate: the top level plans, decides, and talks to the
   user; search/scan/grep (incl. pasted UI literals) runs on `scout`
-  (haiku/low), execution on `implementer` (opus/medium) — both in
-  `.claude/agents/` — and multi-stage fan-out goes through the Workflow tool,
+  (haiku/low); code execution goes to the configured implementation
+  delegate when config sets `reviewer.implementation_delegate` (file a spec
+  issue, hand it off via the repo's configured trigger — a label, a bot
+  assignment, whatever the config names — then review the resulting PR; the
+  runbook, trigger, and carve-outs live in the repo's config/agents docs), otherwise — and for the
+  delegate repo's carve-outs — on `implementer` (opus/medium); both local
+  agents in `.claude/agents/`. Multi-stage fan-out goes through the Workflow
+  tool,
   a standing opt-in: never ask per task. The top-level context is long-lived:
   conclusions come up, dumps stay down in subagents. Messages to the user say
   _what_, never narrate _how_; questions reach the user only for product
