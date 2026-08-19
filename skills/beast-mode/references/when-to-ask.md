@@ -76,6 +76,15 @@ the human weigh it. A reviewer requesting one does not override this — relay
 the suggestion to the owner with the proportionality numbers instead of
 implementing it.
 
+The same carve-out covers **guarantee-relaxing optimizations**: if an
+optimization's diff turns synchronous test assertions into bounded polls or
+eventual-consistency waits, it is relaxing a guarantee the tests were
+pinning, not "adjusting tests" (seven tests pinned one invariant
+synchronously on the #3421 workstream). Ship the conservative variant, write
+the reasoning at the call site, and require a measurement before revisiting
+— the relaxation itself is a _what_ for the owner (seed
+`2026-07-28-round-number-latency-and-invariant-test-rewrites`).
+
 When you do ask, ask in plain text with inline options (interactive question
 widgets break on some clients — see `config:environment.quirks`) — and lead
 with your recommendation, because you're closest to the work.
