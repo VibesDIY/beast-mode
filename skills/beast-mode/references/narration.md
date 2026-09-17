@@ -62,6 +62,18 @@ Two kinds of event that feel report-worthy but aren't:
   unfiled observation is lost. Do **not** deliberate over whether something is
   "worth" an issue or wait for permission to file — when in doubt, file (label
   it, link it, move on). Idle waiting-on-CI windows are the canonical time.
+- **Learned something that bears on an issue already in mind? Comment on it —
+  automatically, without being asked.** The trigger is recall, not research: an
+  issue you filed, read or worked this session surfaces in your head while you
+  are looking at something else, because what you just found changes it. That
+  moment IS the instruction to go comment. Do **not** go searching the tracker
+  for related issues to update — a hunt is its own task and needs its own
+  reason; this rule only asks you to act on the ones that come to you.
+  A finding that corrects, escalates, de-escalates or re-scopes a filed issue
+  is worth a comment even when the issue is closed, and _especially_ when it
+  corrects something you wrote there yourself. An issue whose body is wrong and
+  whose correction lives only in a chat transcript is worse than one never
+  filed: it reads as settled and it is not.
 - Every link clickable: full markdown links, never bare `owner/repo#123`
   shorthand.
 
