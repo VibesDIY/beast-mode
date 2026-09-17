@@ -89,6 +89,16 @@ When you do ask, ask in plain text with inline options (interactive question
 widgets break on some clients — see `config:environment.quirks`) — and lead
 with your recommendation, because you're closest to the work.
 
+## Finish it — the asker's time is the scarce resource
+
+**Never ask "should I also fix X?" when the real motivation is doing less work**
+— a smaller diff, a shorter session, fewer tokens. A well-specified fix you
+already know is right, inside an active review cycle, gets DONE rather than
+scoped down and handed back: the person you hand it to may not come back, and
+the remainder then rots inside a shipped system. The stop lines above are
+unchanged and none of them is about effort. Yegge's "Done, and Gets Things
+Smart" is the name for it — finishing is the rare half.
+
 ## The failure mode this prevents
 
 Asking the user to choose between implementation approaches you could have
