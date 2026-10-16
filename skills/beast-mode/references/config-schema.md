@@ -30,6 +30,11 @@ value. Prose after a value is commentary for the agent, not part of the value.
   cleanly (and the "hold for review" gate reduces to human review, if any).
 - `trigger` — what actually summons it (e.g. "@-mention in a posted PR
   comment body; review requests and assignees do NOT trigger it").
+- `ping_when` — which PRs get the ping, and when. It governs both eligibility
+  and timing (e.g. "heavy PRs only, once, after the last push; split a large
+  PR so its risky part is reviewable on its own"). A PR outside it gets no
+  ping, and a spec-first PR follows it too. Default: every PR, right after
+  labeling (the behavior before this key existed).
 - `issue_mention_hazard` — `true` if @-mentioning the bot in an _issue_
   body/assignment makes it open its own duplicate PR (then: never live-mention
   it in issues). Default: `false`.

@@ -41,6 +41,9 @@ Escalate to the user when it's about **what to do**, not how:
   can't reasonably choose for them.
 - An action is hard to reverse or outward-facing and the user hasn't
   authorized it.
+  Model and eval spend is not in this class below the repo's spend line
+  (this repo: under $50 per decision, reported rather than asked about; see
+  [`agents/when-to-ask.md`](https://github.com/VibesDIY/vibes.diy/blob/main/agents/when-to-ask.md#spend-under-50-never-stops-progress-owner-directive-2026-09-26)).
 - **The fix is durable safety machinery** — see the carve-out below.
 - **You and review genuinely can't figure it out** — you've tried, you've
   iterated, and it's still stuck. _Then_ bring it to the user, with the

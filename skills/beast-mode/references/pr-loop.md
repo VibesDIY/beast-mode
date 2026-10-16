@@ -43,10 +43,28 @@ After opening or updating the PR:
 2. **Ping the reviewer bot the way it actually triggers** —
    `config:reviewer.trigger` documents the mechanism (for many bots only an
    @-mention in a _posted comment body_ works; a review request or assignee
-   does not). Do it immediately after labeling, not "once CI passes" — without
-   the ping, no review ever arrives and the feedback loop silently never runs.
+   does not). By default do it immediately after labeling, not "once CI
+   passes" — without the ping, no review ever arrives and the feedback loop
+   silently never runs; `config:reviewer.ping_when` (below) can narrow which
+   PRs get it and move it to after the last push.
    Make the comment specific: ask review questions tailored to the change, not
-   a generic template. No reviewer bot configured → skip this step cleanly.
+   a generic template. **Name the depth you are asking for, and aim it.** A
+   HEAVY, adversarial read is for money, auth or anyone's data; a safety
+   gate, where a wrong loosening goes green because nothing was ever red; a
+   hard-to-reverse change; or a correctness argument that lives in a parser.
+   A state machine, a security predicate, a policy gate, or an outward-facing
+   change is heavy when it meets one of those classes — not on its own.
+   Everything else asks for a LIGHT read and says so — dependency bumps, docs,
+   a scoped fix shipping a test that fails without it. A heavy ask that does
+   not name the question it wants attacked gets a generic reply, so name it.
+   Classify on signals a third party can check (paths, labels, "if this were
+   subtly wrong, what would go red?"), never on your own confidence in your own
+   change; and asking for light does not lower YOUR bar — the settled-call
+   standard is unchanged. Neither depth gates the merge. Project wording:
+   `config:reviewer.review_depth`. `config:reviewer.ping_when` overrides
+   both who gets the ping and when (for example heavy PRs only, after the
+   last push): a PR outside it gets no ping, and its timing replaces "right
+   after labeling". No reviewer bot configured → skip this step cleanly.
 3. **Subscribe to PR activity** so CI failures and review comments wake you.
    Know your environment's gaps (`config:environment.quirks`): webhooks
    typically don't cover CI success / new pushes / merge conflicts. Schedule a
@@ -71,7 +89,7 @@ doesn't replace scoping. Genuinely big or net-new work starts spec-first:
 write the spec, commit it to the topic branch as the first thing that lands,
 open the PR with the feature-goal title (not `spec:`), and ping the reviewer
 with specific questions about the spec — what's unclear, what's missing, what
-trade-offs need a second opinion. Implementation follows on the same branch
+trade-offs need a second opinion — when `config:reviewer.ping_when` admits it. Implementation follows on the same branch
 after feedback.
 
 ## One PR per feature, titled for the goal
@@ -430,20 +448,18 @@ mined, agent seeds are mined too, and the triage ends by **asking the owner
 which proposals to synthesize into overall memory** (the human is the gate;
 nothing is applied silently). Format + process: `notes/agent-seeds/README.md`.
 
-**Ship a Storybook story with a shared-component change.** A PR that adds or
-changes a component exported from `@vibes.diy/base` (`vibes.diy/base/components/**`)
-ships or updates that component's story in the same PR — the same reflex as the
-capture note and the docs-page rule, and it's enforced: `pnpm lint` runs the
-story-coverage gate, which fails on a new story-less component. Scaffold with
-`pnpm story:new <Name>`, ratchet the seeded backlog with `pnpm story-coverage:update`,
-or mark a genuinely non-visual export `// no-story: <reason>`. This is what gives
-component PRs a visual reference (and the `stories/**` → auto-screenshot payoff).
+**Stories and screenshots are on demand, not per PR.** In this repo a
+Storybook story or a screenshot is made for an audition between options or
+an explicit ask, never as a reflex of touching a component (owner directive
+2026-10-16; the former story-coverage gate is gone). Scaffold one with
+`pnpm story:new <Name>` when an audition needs it.
 Full rule: [vibes.diy's `agents/storybook-stories.md`](https://github.com/VibesDIY/vibes.diy/blob/main/agents/storybook-stories.md).
 
 ## Reviewer-bot hazards outside PRs
 
-If `config:reviewer.issue_mention_hazard` is set: the reviewer bot treats any
-@-mention in an _issue_ body (or an issue assignment) as a task and opens its
-own duplicate PR. Credit it in issues without the `@` ("per Charlie's review
-of #X"); assign it an issue only when you genuinely want it to implement.
-@-mentions in PR comments remain the correct way to request review.
+If `config:reviewer.issue_mention_hazard` is set: the reviewer bot acts on an
+@-mention in an _issue_ body (or an issue assignment) — depending on the bot,
+a chat/plan reply in the issue or its own duplicate PR. Credit it in issues
+without the `@` ("per CodeRabbit's review of #X"); assign it an issue only
+when you genuinely want it to act there. @-mentions in PR comments remain the
+correct way to request review.

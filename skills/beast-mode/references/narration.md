@@ -79,9 +79,13 @@ Two kinds of event that feel report-worthy but aren't:
 
 ## Wrap-up discipline
 
-- Visual/styling work streams end with a **screenshot of the changed screen in
-  its new state** attached to the closing message — the diff is not the look.
-  Honor the project's screenshot caveats (`config:environment.quirks`, e.g.
+- A visual/styling work stream ends with a **screenshot only when someone is
+  choosing between options or asked to see it** (owner directive 2026-10-16);
+  otherwise it ends with a note of what the next click-through should look at,
+  in the project's validate lane where it has one (see the project overlay of
+  `config:capture`). When a screenshot is made, it shows the
+  changed screen in its new state — the diff is not the look — and honors the
+  project's screenshot caveats (`config:environment.quirks`, e.g.
   headless-browser dark-mode force-darkening producing misleading captures).
 - Voice/TTS pings (where configured, desktop-only): only after a waiting
   period completes or an epic finishes — never to announce the start of work.
