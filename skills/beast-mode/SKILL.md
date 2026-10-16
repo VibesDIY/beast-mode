@@ -115,8 +115,8 @@ agent or human can execute top-to-bottom — see
 ## References
 
 - [references/pr-loop.md](references/pr-loop.md) — the autonomous PR loop in
-  full: always-end-with-a-PR, all-at-once-on-one-branch (split only what
-  turns sticky), reviewer ping mechanics, feedback handling, ready-to-merge
+  full: always-end-with-a-PR, all-at-once-on-one-branch (a PR stack for
+  multi-PR work), reviewer ping mechanics, feedback handling, ready-to-merge
   signal, auto-merge vs hold-for-human, issue closing, capture notes.
 - [references/when-to-ask.md](references/when-to-ask.md) — decide the _how_
   yourself; ask the user only about the _what_, and only when review can't

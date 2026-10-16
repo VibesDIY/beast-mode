@@ -31,8 +31,8 @@ value. Prose after a value is commentary for the agent, not part of the value.
 - `trigger` — what actually summons it (e.g. "@-mention in a posted PR
   comment body; review requests and assignees do NOT trigger it").
 - `ping_when` — which PRs get the ping, and when. It governs both eligibility
-  and timing (e.g. "heavy PRs only, once, after the last push; split a large
-  PR so its risky part is reviewable on its own"). A PR outside it gets no
+  and timing (e.g. "heavy PRs only, once, after the last push; put a large
+  change's risky part in a stack PR of its own so it is reviewable alone"). A PR outside it gets no
   ping, and a spec-first PR follows it too. Default: every PR, right after
   labeling (the behavior before this key existed).
 - `issue_mention_hazard` — `true` if @-mentioning the bot in an _issue_
@@ -100,6 +100,11 @@ value. Prose after a value is commentary for the agent, not part of the value.
   bindings but enabling a new producer/consumer path on an existing queue or
   changing retry/routing/dead-letter behavior — live flag flips, any
   non-clean-revert).
+- `stacks` — pointer to the project doc with the PR-stack mechanics for
+  multi-PR work (labels for held stack PRs, which CI runs on a non-default
+  base, how the stack collapses and lands, the ready-to-ship note). Default:
+  none → still stack multi-PR work per pr-loop; base each PR on the one below,
+  hold them all unarmed, and land the series together.
 
 ### `validation`
 

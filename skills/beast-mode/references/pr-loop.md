@@ -98,8 +98,8 @@ A PR title is the feature or goal it ships, never a phase label — no `spec:`,
 `wip:`, `draft:` prefixes. Keep the title current as scope evolves; the PR
 list is the human's at-a-glance view of what's in flight. When a spec PR
 graduates to implementation, push to the same branch — one feature = one PR =
-one place to look. Split only for independently shippable scope, an external
-blocker, or staged-rollout risk isolation.
+one place to look. Work too big for one PR goes out as a stack of PRs, one
+per step (below), each titled for its own step.
 
 ## Every PR body leads with `## Why`
 
@@ -155,23 +155,38 @@ The superseded PR closes with a comment linking the survivor (and its issues,
 runbooks, etc. get deduplicated into the survivor's). (Owner-stated,
 2026-07-07, after the #3342/#3347 race on #3308.)
 
-## All at once on one branch — split only what turns sticky
+## All at once on one branch — a stack when it needs more than one PR
 
-When a work stream has several related pieces (a batch of follow-ups, a
-checker plus the migration it guards, a fix plus its cleanup), do them **all
-at once on one branch** and review them together — on the PR diff and on the
-preview/real environment, where the pieces can be exercised as a whole.
-Don't pre-split into a PR-per-piece: that multiplies review cycles, hides
-the interactions between the pieces, and leaves half the batch stranded when
-attention moves on.
+When a work stream has several related pieces that fit one PR (a batch of
+follow-ups, a checker plus the migration it guards, a fix plus its cleanup),
+do them **all at once on one branch** and review them together — on the PR
+diff and on the preview/real environment, where the pieces can be exercised
+as a whole. Don't pre-split that into a PR-per-piece: it multiplies review
+cycles and hides the interactions between the pieces. (Owner-stated,
+2026-07-04.)
 
-Splitting is **reactive, not proactive**: when one piece turns sticky —
-review stalls on it, it grows risky enough for a hold-for-human deploy, or
-it blocks the otherwise-mergeable rest — carve _that piece_ out to its own
-branch and let the rest land. The split points above (independently
-shippable scope, external blocker, staged-rollout risk) describe what
-stickiness looks like; they're exit criteria, not an upfront partitioning
-scheme. (Owner-stated, 2026-07-04.)
+**Complex, multi-PR work is a stack** (owner directive, 2026-10-16). When the
+plan splits into more than one PR, or the steps touch deploy, caching or
+runtime-boot machinery, the default is a PR stack that keeps the default
+branch clear until the whole series is validated:
+
+- One tracking issue holds the plan: an ordered list of PRs, each with a
+  concrete check to run on its own preview, and the hold-for-human class of
+  each step.
+- PR 1 is based on the default branch; each later PR's base is the previous
+  PR's branch. Stack PRs are not armed for auto-merge and say in their body
+  that they are held as part of the stack.
+- Review fixes go on the PR that owns the code; then rebase the PRs above it.
+- Nothing merges until every step is validated. Then the stack lands
+  together, rebased, never squashed, and final QA runs on the collapsed
+  result.
+- No autonomous ship: queue one ship at the end with a ready-to-ship note on
+  the tracking issue. If a step genuinely needs to soak in production before a
+  later step can be validated, queue that ship and keep building on top.
+
+This replaces landing or shipping big work one PR at a time. The repo's
+mechanics (labels, which CI runs on a non-default base, how the stack
+collapses, the ready-to-ship note) live in `config:merge.stacks`.
 
 ## Handling reviewer feedback
 
@@ -393,9 +408,10 @@ line, the same way the validation SOP allows "nothing in the diff is reachable."
 ## Multi-phase plans: keep moving between phases (feedback, 2026-07-10)
 
 A plan from `writing-plans`/`executing-plans` with several phases (security
-core, then wiring, then UI, ...) lands on **one branch, one PR**, same as any
-other work — see "One PR per feature" above. The same default-keep-moving
-posture applies phase-to-phase, not just within a phase:
+core, then wiring, then UI, ...) lands on **one branch, one PR** when it fits
+one, and as a **stack** with one PR per phase when it doesn't — see "All at
+once on one branch" above. Either way, the same default-keep-moving posture
+applies phase-to-phase, not just within a phase:
 
 > **Push the phase → once your own review says it's settled and the result
 > matches the approved spec/plan → start the next phase without waiting to be
