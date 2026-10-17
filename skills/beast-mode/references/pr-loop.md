@@ -196,7 +196,9 @@ Rule of thumb: **escalate whenever reviewer disagreement is plausible.**
   patches, behavior-preserving refactors. Do them and push.
 - **Escalate to the human:** API/contract changes, user-visible behavior
   shifts, scope changes, real trade-offs. State the question and the options
-  concisely — don't dump the review thread.
+  concisely — don't dump the review thread. Unattended, the question goes on
+  the repo's owner-question surface and the PR links it
+  ([when-to-ask.md § Unattended](when-to-ask.md#carve-out-durable-safety-machinery-is-a-what-not-a-how)).
 
 **Quiet PR-watch:** while subscribed, routine traffic — preview redeploys, bot
 header comments, your own replies echoing back, a flake you re-kicked — gets
