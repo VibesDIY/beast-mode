@@ -95,8 +95,10 @@ with your recommendation, because you're closest to the work.
 **Unattended, ask in one place.** An agent nobody is chatting with (a
 scheduled goal, a PR watcher, a QA or CI lane) asks only `hold` or `taste`
 questions, and only on the repo's owner-question surface, never in a PR
-comment, an issue or a chat post; those link it. In this repo that is the
-feedback desk:
+comment, an issue or a chat post; those link the question itself, not the
+surface. A live chat asks in chat and posts what it is waiting on there too,
+ending its reply with the question's link. In this repo that is the feedback
+desk:
 [`agents/when-to-ask.md` § The factory asks on the desk](https://github.com/VibesDIY/vibes.diy/blob/main/agents/when-to-ask.md#the-factory-asks-on-the-desk-and-only-hold-or-taste-owner-directive-2026-10-17).
 
 ## Finish it — the asker's time is the scarce resource
