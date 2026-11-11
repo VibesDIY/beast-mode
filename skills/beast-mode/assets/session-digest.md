@@ -20,7 +20,9 @@ never a silent stall. The always-on rules:
   default branch; otherwise merge directly on green. Risky classes (schema,
   infra, flag flips, non-clean revert) still hold for a human. Late review
   (lands after merge) → triage: real regression = immediate follow-up fix PR;
-  else a `tech-nit` issue — never revert/reopen for a nit. Verify fixed issues
+  small no-brainer = ride the next open PR; only a finding that needs a
+  judgment = a `tech-nit` issue — never revert/reopen for a nit. Small low-risk
+  fixes you notice mid-task ride the current PR, no issue. Verify fixed issues
   actually closed. Drop the capture note.
 - Work this environment can't do (scopes/secrets/admin) → finish everything it
   CAN do, then file one runbook issue for the privileged agent.

@@ -96,8 +96,9 @@ with your recommendation, because you're closest to the work.
 scheduled goal, a PR watcher, a QA or CI lane) asks only `hold` or `taste`
 questions, and only on the repo's owner-question surface, never in a PR
 comment, an issue or a chat post; those link the question itself, not the
-surface. A live chat asks in chat and posts what it is waiting on there too,
-ending its reply with the question's link. In this repo that is the feedback
+surface. A live chat asks in chat, and a quick question about intent stays
+there. It also posts every `hold`, and every `taste` question still open when
+it stops working, to that surface, ending its reply with the question's link. In this repo that is the feedback
 desk:
 [`agents/when-to-ask.md` § The factory asks on the desk](https://github.com/VibesDIY/vibes.diy/blob/main/agents/when-to-ask.md#the-factory-asks-on-the-desk-and-only-hold-or-taste-owner-directive-2026-10-17).
 
@@ -110,6 +111,11 @@ scoped down and handed back: the person you hand it to may not come back, and
 the remainder then rots inside a shipped system. The stop lines above are
 unchanged and none of them is about effort. Yegge's "Done, and Gets Things
 Smart" is the name for it — finishing is the rare half.
+
+**Bias to action** (vibes.diy owner directive 2026-11-11): a small, low-risk
+fix you notice mid-task gets built in the flow, in the PR you already have
+open, with no nudge and usually no separate issue. Break work out only for a
+real risk or design question. Deploys still need the owner's explicit go.
 
 ## The failure mode this prevents
 

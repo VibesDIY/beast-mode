@@ -99,7 +99,10 @@ A PR title is the feature or goal it ships, never a phase label — no `spec:`,
 list is the human's at-a-glance view of what's in flight. When a spec PR
 graduates to implementation, push to the same branch — one feature = one PR =
 one place to look. Work too big for one PR goes out as a stack of PRs, one
-per step (below), each titled for its own step.
+per step (below), each titled for its own step. Size a PR to the stretch of
+work, not to the smallest reviewable slice: a session's worth of related
+changes that reads as one piece is a good review chunk, and adjacent fixes
+ride along.
 
 ## Every PR body leads with `## Why`
 
@@ -232,8 +235,9 @@ tech-debt observations you accumulated — duplication, dead code, drift risks,
 missing test seams, foot-guns you worked around, and gaps in the agent docs
 themselves. Chat observations vanish; issues are durable. Lead each with a
 plain-language summary, label per `config:issues`, search for near-duplicates
-first and cross-link siblings both ways. Don't fix it inline in the current PR
-unless it's already in scope.
+first and cross-link siblings both ways. A small, low-risk fix is not an issue:
+it rides in the current PR with a line in the description. File only what
+carries a real risk or design question, or is too large for this session.
 
 ## Validate changed features against a real environment
 
@@ -369,8 +373,12 @@ merge on this if I'd seen it in time?**
   shipped, treat it with prod-incident urgency. This is the escape valve for
   when "settled" was wrong — and it will be sometimes; that's the cost of not
   waiting, paid down fast.
-- **No — everything else** (style, naming, structure, test-shape, non-blocking
-  "consider X"): file a **`tech-nit` issue** (labels `tech-nit` + the
+- **No, and the fix is a small no-brainer** (a rename, a missing test case, a
+  stale comment): fix it. Ride it in your next open PR on the same area, or
+  open a small "Follow-up to #\<PR\>" PR that merges on green. No issue needed
+  ([bias to action](https://github.com/VibesDIY/vibes.diy/blob/main/agents/when-to-ask.md#bias-to-action-build-the-small-fix-when-you-notice-it-owner-directive-2026-11-11)).
+- **No, and it needs a judgment** (structure, a design trade-off, a "consider
+  X" you are not sure is right): file a **`tech-nit` issue** (labels `tech-nit` + the
   agent-created label), title it from the finding, link the review comment and
   the merged PR, and move on. Do **not** revert, reopen, or hotfix for a nit.
 
@@ -446,6 +454,16 @@ auto-close _might_ fire for free. Then on merge, verify each fixed issue
 actually closed and explicitly close any that didn't, with a one-line
 `Fixed by #<PR>` comment. Never leave a fixed issue open because the keyword
 didn't take.
+
+**`Fixes` is the default, and a leftover is a new issue.** A PR that delivers
+what the issue's title asks says `Fixes #N`, even when a small question or an
+unrelated nit is still open: file that as its own issue, link it from the PR
+body, and let the original close. Write `Refs #N` only for a tracker, an epic,
+an issue whose main ask this PR leaves unbuilt, or an issue that can only
+close after a deploy check or a human hold clears, and name what is still open
+in the PR body. In this repo the full rule, with the billing and human-hold
+cases, is
+[`agents/closing-issues.md`](https://github.com/VibesDIY/vibes.diy/blob/main/agents/closing-issues.md#close-when-the-work-finishes-a-follow-up-is-a-new-issue).
 
 ## Every PR: drop a capture note
 

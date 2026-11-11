@@ -68,10 +68,13 @@ Messages to the user are only what they need to hear:
   nag, or harness reminder is not a user question — act on it (or correctly
   decline to) silently. Never send the user a message whose only content is
   explaining workstation state.
-- **Ask why, rarely**: questions reach the user only for **product one-way
-  doors** — irreversible or hard-to-reverse product decisions. Two-way doors
-  (reversible calls): pick the best option, note the call on the PR, keep
-  moving. Ask in plain text with inline options (interactive question widgets
+- **Ask why, rarely**: a one-line question about intent is fine in a live chat
+  when the answer saves a wrong build. Decisions reach the user only for
+  **product one-way doors** (irreversible or hard-to-reverse product
+  decisions), business risk, product design drift (a new look, copy that
+  states a promise), architecture you can't settle, or a message to an outside
+  party. Other two-way doors: pick the best option, note the call on the PR,
+  keep moving. Ask in plain text with inline options (interactive question widgets
   break on some clients — see `config:environment.quirks`).
 - **Workable uncertainty → draft PR, not a question**: when a task has a lot
   you're unsure about but can work through, don't bring the pile to the user

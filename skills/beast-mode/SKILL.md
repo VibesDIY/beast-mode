@@ -66,7 +66,7 @@ For each work stream, from dispatch to done:
    assign `config:issues.default_assignee` (preserving existing assignees —
    assignee lists are replacement sets on GitHub).
 2. **Scope-check** — small, one-sentence, non-controversial → straight to
-   work. Broad / experimental / behavior-changing → flag the human for a design
+   work. Experimental or product-direction-changing → flag the human for a design
    issue first, but don't rigidly block. Decide the _how_ yourself; ask only
    about the _what_ ([references/when-to-ask.md](references/when-to-ask.md)).
 3. **Work on a topic branch**, narrating semantics, not mechanics

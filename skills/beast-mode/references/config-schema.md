@@ -58,7 +58,8 @@ value. Prose after a value is commentary for the agent, not part of the value.
 - `pre_merge_gate` — `false` if the review bot is async and does NOT gate merge:
   garden-variety PRs merge / arm on the team's own "settled" assessment without
   waiting for the bot's first pass, and feedback arriving after merge is triaged
-  (real regression → follow-up fix PR; else a `tech-nit` issue). Default: `true`
+  (real regression → follow-up fix PR; small no-brainer → rides the next open
+  PR; a finding that needs a judgment → a `tech-nit` issue). Default: `true`
   → the bot's pass on the current head is a pre-merge gate (arm only after it).
 
 ### `labels`
