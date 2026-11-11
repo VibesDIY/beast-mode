@@ -197,6 +197,13 @@ Rule of thumb: **escalate whenever reviewer disagreement is plausible.**
 
 - **Handle autonomously:** wording/clarity edits, naming, obvious edge-case
   patches, behavior-preserving refactors. Do them and push.
+- **Batch bot-review fixes into one push.** When more than one bot reviews on
+  open (here: Codex at a median 2.2 min, Copilot at a median 4.8 min, p90 7.3),
+  wait until both have posted, capped at about 10 min, then push one fix for
+  all of it. A push per reviewer restarts CI once per reviewer: 19 of 89
+  measured PRs paid a whole extra run that way. The disarm-before-push rule
+  for an armed PR is unchanged. Detail:
+  [pr-lifecycle.md § Two bots review every PR on open](https://github.com/VibesDIY/vibes.diy/blob/main/agents/pr-lifecycle.md#two-bots-review-every-pr-on-open--wait-for-both-then-push-one-batch-of-fixes-2026-11-11).
 - **Escalate to the human:** API/contract changes, user-visible behavior
   shifts, scope changes, real trade-offs. State the question and the options
   concisely — don't dump the review thread. Unattended, the question goes on
