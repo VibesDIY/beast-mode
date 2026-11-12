@@ -1,3 +1,5 @@
+Copyright 2024-2026 Fireproof Storage Incorporated
+
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
