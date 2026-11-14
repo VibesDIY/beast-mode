@@ -53,6 +53,12 @@ Two kinds of event that feel report-worthy but aren't:
 - **Lead with a one/two-sentence plain-language summary** of the problem,
   before any technical detail, file paths, or repro steps. A teammate triaging
   the backlog should know what an issue is without decoding it.
+- **A serious finding gets a fuller plain explanation at the top, and a desk
+  hold.** For security, data loss, billing or privacy, open with a few short
+  paragraphs a non-engineer can follow (what it is, what it allows, whether it
+  happened, how it was found), then the paths and evidence, and post a `hold`
+  on the project's human-question channel linking the issue (named in
+  `config:issues`).
 - **Label on creation** — a type label plus at least one area label, plus the
   agent-created label when an agent files it (taxonomy from
   `config:issues`). Untagged issues are manual triage debt.
