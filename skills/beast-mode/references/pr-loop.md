@@ -19,6 +19,10 @@ branching, or coding — is to claim it so the same work doesn't start twice.
 2. Otherwise assign `config:issues.default_assignee` (or whoever the requester
    names). **Assignee lists are replacement sets** — include existing assignees
    in the update or you'll silently remove them.
+3. **A teammate named for a human step is assigned too.** When the issue (or
+   the desk action it queues) gives a step to Marcus (`popmechanic`) or Meghan
+   (`meghansinnott`), add them beside `jchris` (rule in this repository's
+   `agents/goals/feedback-desk.md`, the action queue section).
 
 ## Always end a work session with a PR
 
